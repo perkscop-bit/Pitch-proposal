@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Perks Hive — Founding Venue Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- ─────────────────────────────────────────────────────────────
+     VIEW TOGGLE — MUST STAY IN <head> FOR MOBILE SAFARI
+──────────────────────────────────────────────────────────────── -->
+<script>
+window.openOffer = function() {
+  document.body.classList.add('viewing-offer');
+  document.body.classList.remove('viewing-deep');
+  window.scrollTo(0,0);
+  var v = document.getElementById('offerView');
+  if (v) { v.querySelectorAll('.fade-in').forEach(function(el){ el.classList.add('on'); el.style.opacity='1'; el.style.transform='translateY(0)'; }); }
+  return false;
+};
+window.closeOffer = function() {
+  document.body.classList.remove('viewing-offer');
+  document.body.classList.remove('viewing-deep');
+  window.scrollTo(0,0);
+  return false;
+};
+window.openDeep = function() {
+  document.body.classList.add('viewing-deep');
+  window.scrollTo(0,0);
+  var v = document.getElementById('deepView');
+  if (v) { v.querySelectorAll('.fade-in').forEach(function(el){ el.classList.add('on'); el.style.opacity='1'; el.style.transform='translateY(0)'; }); }
+  return false;
+};
+window.closeDeep = function() {
+  document.body.classList.remove('viewing-deep');
+  window.scrollTo(0,0);
+  return false;
+};
+document.addEventListener('keydown', function(e) {
+  if (e.key==='Escape') {
+    if (document.body.classList.contains('viewing-deep')) { window.closeDeep(); }
+    else if (document.body.classList.contains('viewing-offer')) { window.closeOffer(); }
+  }
+});
+</script>
+
+<style>
+/* ════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+════════════════════════════════════════════════════════════ */
+:root {
+  --bg:    #191A1D;
+  --bg-2:  #111214;
+  --bg-3:  #1f2024;
+  --bg-card:#23252a;
+  --line:  #2c2e34;
+  --line-2:#212326;
+  --ink:   #ffffff;
+  --ink-soft:#d4d6db;
+  --muted: #7a7d87;
+  --muted-2:#454850;
+  --accent: #13C05D;
+  --accent-2:#0fa84f;
+  --gold:  #FFC465;
+  --lime:  #EAFC9F;
+  --bl:    #00A5DC;
+  --pu:    #6C00EF;
+  --pi:    #F742A2;
+  --co:    #EC5D49;
+  --sidebar-w: 280px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIEW TOGGLE CSS
+════════════════════════════════════════════════════════════ */
+.offer-view  { display: none; position: relative; z-index: 50; background: var(--bg); min-height: 100vh; }
+.deep-view   { display: none; position: relative; z-index: 60; background: var(--bg); min-height: 100vh; }
+
+body.viewing-offer .offer-view  { display: block !important; }
+body.viewing-offer .layout      { display: none !important; }
+body.viewing-deep  .deep-view   { display: block !important; }
+body.viewing-deep  .offer-view  { display: none !important; }
+body.viewing-deep  .layout      { display: none !important; }
+
+/* Back buttons */
+.back-btn {
+  display: none;
+  position: fixed; top: 20px; left: 20px; z-index: 300;
+  background: var(--bg-3); border: 1px solid var(--line);
+  color: var(--muted); font-family: inherit; font-size: 11px;
+  font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  padding: 10px 18px; cursor: pointer; transition: color .2s, border-color .2s;
+}
+.back-btn:hover { color: var(--accent); border-color: var(--accent); }
+.offer-back-btn { }
+.deep-back-btn  { }
+body.viewing-offer .offer-back-btn { display: block; }
+body.viewing-deep  .deep-back-btn  { display: block; }
+body.viewing-deep  .offer-back-btn { display: none !important; }
+
+/* ════════════════════════════════════════════════════════════
+   LAYOUT — SIDEBAR + MAIN
+════════════════════════════════════════════════════════════ */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg-2);
+  border-right: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--line); }
+
+.sidebar-logo {
+  padding: 32px 28px 24px;
+  border-bottom: 1px solid var(--line-2);
+}
+.sidebar-logo img { width: 100px; display: block; }
+
+.sidebar-section { padding: 24px 28px; flex: 1; }
+.sidebar-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--muted-2);
+  margin-bottom: 16px;
+}
+
+.toc { list-style: none; }
+.toc li { margin-bottom: 2px; }
+.toc a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 10px; text-decoration: none;
+  color: var(--muted); font-size: 12.5px; font-weight: 500;
+  transition: color .2s, background .2s; border-radius: 2px;
+}
+.toc a:hover { color: var(--ink-soft); background: var(--line-2); }
+.toc a.active { color: var(--accent); }
+.toc a .num {
+  font-size: 9px; font-weight: 700; letter-spacing: .1em;
+  color: var(--muted-2); min-width: 20px;
+}
+.toc a.active .num { color: var(--accent); }
+
+.sidebar-foot {
+  padding: 20px 28px;
+  border-top: 1px solid var(--line-2);
+  font-size: 10px; color: var(--muted-2); line-height: 1.7;
+}
+.sidebar-foot strong { color: var(--muted); display: block; margin-bottom: 4px; }
+
+/* Main content */
+main { flex: 1; overflow: hidden; }
+
+/* ════════════════════════════════════════════════════════════
+   SECTIONS — SHARED
+════════════════════════════════════════════════════════════ */
+.chapter, .hero-section, .offer-section, .deep-section {
+  padding: 120px 80px;
+  border-bottom: 1px solid var(--line-2);
+  position: relative;
+  overflow: hidden;
+}
+@media (max-width: 900px) {
+  .chapter, .hero-section, .offer-section, .deep-section {
+    padding: 80px 32px;
+  }
+  .sidebar { display: none; }
+  .layout { flex-direction: column; }
+  main { width: 100%; }
+  :root { --sidebar-w: 0px; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   BLUEPRINT FRAME (HERO SECTIONS)
+════════════════════════════════════════════════════════════ */
+.hf {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.hf-mark {
+  position: absolute; width: 20px; height: 20px;
+  color: var(--gold); font-size: 18px; font-weight: 300; line-height: 1;
+  font-family: monospace;
+}
+.hf-mark.tl { top: 24px; left: 24px; }
+.hf-mark.tr { top: 24px; right: 24px; text-align: right; }
+.hf-mark.bl { bottom: 24px; left: 24px; }
+.hf-mark.br { bottom: 24px; right: 24px; text-align: right; }
+.hf-label {
+  position: absolute; font-size: 9px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted-2); font-family: monospace;
+}
+.hf-label.tl { top: 20px; left: 52px; }
+.hf-label.tr { top: 20px; right: 52px; }
+.hf-label.bl { bottom: 20px; left: 52px; }
+.hf-label.br { bottom: 20px; right: 52px; }
+
+/* ════════════════════════════════════════════════════════════
+   PARTICLES
+════════════════════════════════════════════════════════════ */
+.particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.particles span {
+  position: absolute; bottom: -20px;
+  width: 3px; height: 3px; border-radius: 50%;
+  background: var(--gold); opacity: .4;
+  animation: pDrift 16s linear infinite;
+}
+.particles span:nth-child(2) { width: 2px; height: 2px; background: var(--accent); opacity: .3; animation-duration: 20s; }
+.particles span:nth-child(3) { width: 2px; height: 2px; background: var(--lime); opacity: .2; animation-duration: 12s; }
+.particles span:nth-child(4) { width: 4px; height: 4px; opacity: .15; animation-duration: 24s; }
+.particles span:nth-child(5) { width: 2px; height: 2px; background: var(--accent); opacity: .25; animation-duration: 18s; }
+.particles span:nth-child(6) { opacity: .2; animation-duration: 14s; }
+.particles span:nth-child(7) { background: var(--lime); opacity: .15; animation-duration: 22s; }
+.particles span:nth-child(8) { width: 3px; height: 3px; background: var(--accent); opacity: .2; animation-duration: 17s; }
+
+@keyframes pDrift {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: .4; }
+  90%  { opacity: .2; }
+  100% { transform: translateY(-120vh) translateX(30px); opacity: 0; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   GHOST CHAPTER NUMBER
+════════════════════════════════════════════════════════════ */
+.ghost-num {
+  position: absolute; top: 60px; right: 60px;
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 900; color: var(--gold);
+  opacity: .04; pointer-events: none;
+  letter-spacing: -.04em; line-height: 1;
+  user-select: none;
+}
+
+/* ════════════════════════════════════════════════════════════
+   FADE IN ON SCROLL
+════════════════════════════════════════════════════════════ */
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.fade-in.on  { opacity: 1; transform: translateY(0); }
+.fade-in.d1  { transition-delay: .12s; }
+.fade-in.d2  { transition-delay: .24s; }
+.fade-in.d3  { transition-delay: .36s; }
+.fade-in.d4  { transition-delay: .48s; }
+
+/* ════════════════════════════════════════════════════════════
+   TYPOGRAPHY SYSTEM
+════════════════════════════════════════════════════════════ */
+.eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+}
+.eyebrow-accent { color: var(--accent); }
+
+.hero-title {
+  font-size: clamp(42px, 6vw, 84px);
+  font-weight: 900; letter-spacing: -.04em;
+  line-height: 1.0; color: var(--ink);
+  margin-bottom: 24px;
+}
+.hero-title .accent-line { color: var(--accent); }
+
+.section-label {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px;
+}
+.section-label .lnum {
+  font-size: 10px; font-weight: 700; letter-spacing: .15em;
+  color: var(--gold); font-family: monospace;
+}
+.section-label .ltxt {
+  font-size: 10px; font-weight: 600; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.section-headline {
+  font-size: clamp(32px, 4vw, 58px);
+  font-weight: 900; letter-spacing: -.035em; line-height: 1.05;
+  color: var(--ink); margin-bottom: 20px;
+}
+.section-headline .punch { color: var(--accent); }
+.section-headline .lgold { color: var(--gold); }
+
+.lead {
+  font-size: 17px; color: var(--ink-soft); line-height: 1.7;
+  max-width: 640px; margin-bottom: 56px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   THREE-COL CARDS
+════════════════════════════════════════════════════════════ */
+.three-col {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .three-col { grid-template-columns: 1fr; } }
+
+.tc-card {
+  background: var(--bg-card); padding: 36px 32px;
+  border: 1px solid var(--line); transition: border-color .2s, transform .2s;
+}
+.tc-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.tc-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 16px; font-family: monospace;
+}
+.tc-card h4 {
+  font-size: 18px; font-weight: 800; color: var(--ink);
+  letter-spacing: -.02em; line-height: 1.25; margin-bottom: 14px;
+}
+.tc-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ════════════════════════════════════════════════════════════
+   STAT DISPLAY
+════════════════════════════════════════════════════════════ */
+.stat-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 1px solid var(--line); margin-top: 48px;
+}
+@media (max-width: 900px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
+
+.stat-item {
+  padding: 36px 32px; border-right: 1px solid var(--line);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 900; letter-spacing: -.04em;
+  color: var(--accent); line-height: 1; margin-bottom: 8px;
+}
+.stat-label { font-size: 12px; color: var(--muted); font-weight: 500; line-height: 1.4; }
+
+/* ════════════════════════════════════════════════════════════
+   PROBLEM GRID
+════════════════════════════════════════════════════════════ */
+.problem-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr; } }
+
+.prob-card {
+  background: var(--bg-3); padding: 32px 28px;
+  border: 1px solid var(--line);
+}
+.prob-num {
+  font-size: 10px; font-weight: 700; letter-spacing: .2em;
+  color: var(--co); font-family: monospace; margin-bottom: 14px;
+}
+.prob-card h4 {
+  font-size: 15px; font-weight: 800; color: var(--ink);
+  letter-spacing: -.01em; margin-bottom: 10px; line-height: 1.3;
+}
+.prob-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ════════════════════════════════════════════════════════════
+   PILLARS (NUMBERED LIST)
+════════════════════════════════════════════════════════════ */
+.pillars { margin-top: 48px; }
+.pillar-row {
+  display: grid; grid-template-columns: 56px 1fr;
+  gap: 32px; padding: 32px 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.pillar-row:last-child { border-bottom: none; }
+.p-num {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  color: var(--accent); font-family: monospace; padding-top: 3px;
+}
+.p-content h4 {
+  font-size: 17px; font-weight: 800; color: var(--ink);
+  letter-spacing: -.02em; margin-bottom: 8px;
+}
+.p-content p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.p-tag {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 3px 10px; margin-bottom: 10px;
+  border: 1px solid; border-radius: 2px;
+}
+.p-tag.blue  { color: var(--bl);  border-color: var(--bl);  background: rgba(0,165,220,.08); }
+.p-tag.pu    { color: var(--pu);  border-color: var(--pu);  background: rgba(108,0,239,.08); }
+.p-tag.pi    { color: var(--pi);  border-color: var(--pi);  background: rgba(247,66,162,.08); }
+.p-tag.co    { color: var(--co);  border-color: var(--co);  background: rgba(236,93,73,.08); }
+.p-tag.green { color: var(--accent); border-color: var(--accent); background: rgba(19,192,93,.08); }
+
+/* ════════════════════════════════════════════════════════════
+   MANIFESTO / QUOTE
+════════════════════════════════════════════════════════════ */
+.manifesto-block {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  padding: 48px 56px; margin-top: 48px;
+}
+.manifesto-block p {
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 700; color: var(--ink-soft);
+  line-height: 1.5; letter-spacing: -.02em;
+}
+.manifesto-block p span { color: var(--accent); }
+.manifesto-sig {
+  margin-top: 28px; font-size: 12px; color: var(--muted);
+  font-weight: 500; letter-spacing: .05em;
+}
+
+/* ════════════════════════════════════════════════════════════
+   COMPARISON TABLE
+════════════════════════════════════════════════════════════ */
+.comp-table {
+  width: 100%; border-collapse: collapse; margin-top: 48px; font-size: 13px;
+}
+.comp-table th {
+  padding: 14px 20px; text-align: left;
+  font-size: 10px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.comp-table th:first-child { color: var(--ink-soft); }
+.comp-table th.perks-col { color: var(--accent); }
+.comp-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line-2);
+  color: var(--muted); vertical-align: top;
+}
+.comp-table td:first-child { color: var(--ink-soft); font-weight: 600; }
+.comp-table .y { color: var(--accent); font-weight: 700; }
+.comp-table .n { color: var(--muted-2); }
+.comp-table tr:last-child td { border-bottom: none; }
+
+/* ════════════════════════════════════════════════════════════
+   ROADMAP TIMELINE
+════════════════════════════════════════════════════════════ */
+.roadmap {
+  margin-top: 56px; position: relative; padding: 40px 0;
+}
+.roadmap-line {
+  position: absolute; top: 50%; left: 0; right: 0;
+  height: 1px; background: var(--line);
+}
+.roadmap-phases {
+  display: flex; justify-content: space-between;
+  position: relative; z-index: 1;
+}
+.phase {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  flex: 1; cursor: default;
+}
+.phase-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--bg-3); border: 2px solid var(--line);
+  transition: border-color .2s, background .2s;
+}
+.phase.active .phase-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px rgba(19,192,93,.2); }
+.phase-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .1em; }
+.phase.active .phase-label { color: var(--accent); }
+.phase-desc { font-size: 11px; color: var(--muted-2); text-align: center; max-width: 100px; line-height: 1.4; }
+
+/* ════════════════════════════════════════════════════════════
+   CTA BLOCKS
+════════════════════════════════════════════════════════════ */
+.cta-block {
+  padding: 100px 80px; text-align: center;
+  background: var(--bg-2); position: relative; overflow: hidden;
+}
+.cta-block::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(19,192,93,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--accent); color: #000;
+  font-family: inherit; font-size: 13px; font-weight: 800;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 18px 40px; cursor: pointer;
+  border: none; transition: background .2s, transform .15s;
+  user-select: none; touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(19,192,93,.3);
+}
+.cta-btn:hover { background: var(--accent-2); transform: translateY(-1px); }
+.cta-btn * { pointer-events: none; }
+
+.cta-secondary {
+  display: inline-block;
+  background: transparent; color: var(--muted);
+  font-family: inherit; font-size: 11px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 14px 28px; cursor: pointer;
+  border: 1px solid var(--line); margin-left: 16px;
+  transition: color .2s, border-color .2s;
+  user-select: none; touch-action: manipulation;
+}
+.cta-secondary:hover { color: var(--ink); border-color: var(--line); }
+.cta-secondary * { pointer-events: none; }
+
+/* ════════════════════════════════════════════════════════════
+   PRICING CARDS
+════════════════════════════════════════════════════════════ */
+.price-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .price-grid { grid-template-columns: 1fr; } }
+
+.price-card {
+  background: var(--bg-card); border: 1px solid var(--line);
+  padding: 40px 32px; position: relative;
+}
+.price-card.featured {
+  background: var(--bg-2); border-color: var(--accent);
+}
+.price-badge {
+  position: absolute; top: -1px; left: 32px;
+  font-size: 9px; font-weight: 800; letter-spacing: .2em;
+  text-transform: uppercase; color: #000; background: var(--accent);
+  padding: 5px 12px;
+}
+.price-tier { font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.price-amount {
+  font-size: 52px; font-weight: 900; letter-spacing: -.04em;
+  color: var(--ink); line-height: 1; margin-bottom: 4px;
+}
+.price-amount span { font-size: 20px; font-weight: 500; color: var(--muted); }
+.price-period { font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+.price-list { list-style: none; }
+.price-list li {
+  font-size: 13px; color: var(--ink-soft); padding: 8px 0;
+  border-bottom: 1px solid var(--line-2); display: flex; gap: 10px;
+}
+.price-list li:last-child { border-bottom: none; }
+.price-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+/* ════════════════════════════════════════════════════════════
+   CO-BRAND HERO (OFFER VIEW)
+════════════════════════════════════════════════════════════ */
+.cobrand-mark {
+  display: flex; align-items: center; justify-content: center;
+  gap: 32px; margin-bottom: 48px; flex-wrap: wrap;
+}
+.cobrand-mark .venue-name {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900; letter-spacing: -.04em;
+  color: var(--ink-soft); line-height: 1;
+}
+.cobrand-mark .x-mark {
+  font-size: clamp(24px, 3vw, 40px);
+  color: var(--muted-2); font-weight: 300;
+}
+.cobrand-mark img { height: 48px; }
+
+/* ════════════════════════════════════════════════════════════
+   META STRIP (HERO FOOTER)
+════════════════════════════════════════════════════════════ */
+.meta-strip {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 32px;
+  border-top: 1px solid var(--line-2);
+}
+.meta-item { font-size: 11px; color: var(--muted); }
+.meta-item strong { color: var(--ink-soft); font-weight: 600; margin-left: 6px; }
+
+/* ════════════════════════════════════════════════════════════
+   HAMBURGER (MOBILE SIDEBAR TOGGLE)
+════════════════════════════════════════════════════════════ */
+.hamburger {
+  display: none; position: fixed; top: 16px; right: 16px; z-index: 400;
+  background: var(--bg-3); border: 1px solid var(--line);
+  color: var(--muted); cursor: pointer; padding: 10px 12px;
+  font-size: 14px;
+}
+@media (max-width: 900px) { .hamburger { display: block; } }
+
+/* ════════════════════════════════════════════════════════════
+   MISC
+════════════════════════════════════════════════════════════ */
+.divider {
+  height: 1px; background: var(--line-2); margin: 48px 0;
+}
+.accent-rule {
+  width: 40px; height: 3px; background: var(--accent);
+  margin-bottom: 32px;
+}
+.tag-pill {
+  display: inline-flex; align-items: center;
+  font-size: 10px; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; padding: 5px 12px;
+  border: 1px solid var(--line); color: var(--muted);
+  margin-right: 8px; margin-bottom: 8px;
+}
+
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; gap: 40px; } }
+
+@media (max-width: 900px) {
+  .hero-mockup { display: none !important; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SCROLLBAR
+════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     BACK BUTTONS (FIXED)
+══════════════════════════════════════════════════════════════ -->
+<button class="back-btn offer-back-btn" onclick="return window.closeOffer();">← Back to Overview</button>
+<button class="back-btn deep-back-btn" onclick="return window.closeDeep();">← Back to Offer</button>
+
+<!-- ══════════════════════════════════════════════════════════════
+     VIEW 1 — BRAND BOOK
+══════════════════════════════════════════════════════════════ -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/images/Logo_long.png" alt="Perks Hive" onerror="this.style.display='none';this.nextSibling.style.display='block'">
+      <span style="display:none;font-size:18px;font-weight:900;color:#13C05D;letter-spacing:-.02em;">Perks Hive</span>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Brand Book</div>
+      <ul class="toc">
+        <li><a href="#hero" class="active"><span class="num">00</span><span>Cover</span></a></li>
+        <li><a href="#ch01"><span class="num">01</span><span>Why We Exist</span></a></li>
+        <li><a href="#ch02"><span class="num">02</span><span>What Perks Is</span></a></li>
+        <li><a href="#ch03"><span class="num">03</span><span>How It Works</span></a></li>
+        <li><a href="#ch04"><span class="num">04</span><span>Perks Moments</span></a></li>
+        <li><a href="#ch05"><span class="num">05</span><span>The Hive</span></a></li>
+        <li><a href="#ch06"><span class="num">06</span><span>Competitive Position</span></a></li>
+        <li><a href="#ch07"><span class="num">07</span><span>The Market</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar-foot">
+      <strong>Perks Hive · v1.0</strong>
+      Founding Venue Pitch<br>
+      Confidential · 2026
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- ── CH 00 HERO ── -->
+    <section class="hero-section" id="hero" style="min-height:100vh;display:flex;align-items:center;padding:140px 80px;">
+      <div class="hf">
+        <div class="hf-mark tl">+</div>
+        <div class="hf-mark tr">+</div>
+        <div class="hf-mark bl">+</div>
+        <div class="hf-mark br">+</div>
+        <div class="hf-label tl">PH-00 · COVER</div>
+        <div class="hf-label tr">v1.0</div>
+        <div class="hf-label bl">Melbourne · 2026</div>
+        <div class="hf-label br">CONFIDENTIAL</div>
+      </div>
+      <div class="particles">
+        <span style="left:8%;animation-delay:0s"></span>
+        <span style="left:22%;animation-delay:3s"></span>
+        <span style="left:38%;animation-delay:6s"></span>
+        <span style="left:55%;animation-delay:1.5s"></span>
+        <span style="left:70%;animation-delay:4s"></span>
+        <span style="left:83%;animation-delay:8s"></span>
+        <span style="left:15%;animation-delay:11s"></span>
+        <span style="left:92%;animation-delay:5s"></span>
+      </div>
+      <div style="position:relative;z-index:1;display:flex;align-items:center;gap:80px;width:100%;">
+        <div style="flex:1;min-width:0;">
+          <div class="eyebrow fade-in on">Brand Book · Founding Venue Pitch · 2026</div>
+          <h1 class="hero-title fade-in on d1">
+            More show.<br>
+            <span class="accent-line">Less tell.</span>
+          </h1>
+          <p class="lead fade-in on d2">
+            Your best customers come back every week. Paper stamps get lost. Apps don't get downloaded. Perks Hive is the loyalty card that lives in their phone, built with your brand, owned by you, free to start. No app. No commission. No middleman.
+          </p>
+          <div class="meta-strip fade-in on d3">
+            <div class="meta-item">Doc · <strong>Perks Hive Brand v1</strong></div>
+            <div class="meta-item">Date · <strong>May 2026</strong></div>
+            <div class="meta-item">For · <strong>Independent Venues · Melbourne</strong></div>
+            <div class="meta-item">ABN · <strong>82 501 453 599</strong></div>
+          </div>
+        </div>
+        <div class="fade-in on d2 hero-mockup" style="flex-shrink:0;width:320px;display:flex;align-items:center;justify-content:center;">
+          <img src="assets/images/Mockup1.png" alt="Perks Hive wallet card on phone"
+               style="width:100%;max-width:280px;display:block;filter:drop-shadow(0 32px 64px rgba(19,192,93,0.18)) drop-shadow(0 8px 24px rgba(0,0,0,0.6));">
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 01: WHY WE EXIST ── -->
+    <section class="chapter" id="ch01">
+      <div class="ghost-num">01</div>
+      <div class="section-label fade-in">
+        <span class="lnum">01 —</span>
+        <span class="ltxt">Why We Exist</span>
+      </div>
+      <h2 class="section-headline fade-in d1">
+        The chains have had loyalty<br>for years. You've had paper stamps.
+      </h2>
+      <p class="lead fade-in d2">
+        Every chain in Australia runs a loyalty program. Every aggregator takes 10–20% margin and keeps the customer data. You get paper stamps and an Instagram account. We built Perks Hive to close that gap. For good.
+      </p>
+      <div class="problem-grid">
+        <div class="prob-card fade-in">
+          <div class="prob-num">PROB · 01</div>
+          <h4>No Loyalty, Losing Ground</h4>
+          <p>Starbucks, Guzman, Subway. Every chain runs a loyalty program. Your regulars collect points there while you stay invisible. They never forget the chain. They might forget you.</p>
+        </div>
+        <div class="prob-card fade-in d1">
+          <div class="prob-num">PROB · 02</div>
+          <h4>Nobody Downloads Another App</h4>
+          <p>Ask someone to download an app and 40–60% won't bother. That's half your potential regulars walking out without a card. Perks needs nothing but a QR scan. The card lands straight in Wallet.</p>
+        </div>
+        <div class="prob-card fade-in d2">
+          <div class="prob-num">PROB · 03</div>
+          <h4>Out of Sight, Out of Mind</h4>
+          <p>70% of loyalty members forget they're enrolled if they can't see the card. A Perks card lives on the lock screen. Every time they check their phone, your brand is there.</p>
+        </div>
+        <div class="prob-card fade-in d1">
+          <div class="prob-num">PROB · 04</div>
+          <h4>Aggregators Own Your Customers</h4>
+          <p>EatClub takes the commission. Uber Eats keeps the customer record. When someone orders through them, you make the coffee. They keep the relationship. Perks gives it back.</p>
+        </div>
+        <div class="prob-card fade-in d2">
+          <div class="prob-num">PROB · 05</div>
+          <h4>Dead Hours Bleed Money</h4>
+          <p>Every venue has a slow Tuesday afternoon. Deep-discounting on EatClub trains customers to wait for deals. Perks activates your existing regulars with a personal invite. Not a price drop.</p>
+        </div>
+        <div class="prob-card fade-in d3">
+          <div class="prob-num">PROB · 06</div>
+          <h4>The Counter is the Bottleneck</h4>
+          <p>Asking staff to read out phone numbers is slow and error-prone. One QR code at the counter does it in 30 seconds with no staff involvement at all. Queue keeps moving.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 02: WHAT PERKS IS ── -->
+    <section class="chapter" id="ch02">
+      <div class="ghost-num">02</div>
+      <div class="section-label fade-in">
+        <span class="lnum">02 —</span>
+        <span class="ltxt">What Perks Is</span>
+      </div>
+      <h2 class="section-headline fade-in d1">
+        Your Digital Brand Soul.
+      </h2>
+      <p class="lead fade-in d2">
+        Perks Hive is not a stamp card. It is not a discount tool. It is how your best customers stay yours: a card that carries your brand, tracks your regulars, and brings them back because they belong. Not because you cut the price.
+      </p>
+
+      <div class="manifesto-block fade-in d2">
+        <p>
+          "The card builds the relationship. Perks Moments activates it. A venue with 500 cardholders has 500 people who already claim that place as theirs. <span>That is the one thing no aggregator can take from you.</span>"
+        </p>
+      </div>
+
+      <div class="two-col" style="margin-top:64px;">
+        <div>
+          <div class="accent-rule fade-in"></div>
+          <h4 style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:16px;letter-spacing:-.02em;" class="fade-in d1">What we are NOT</h4>
+          <ul style="list-style:none;">
+            <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--muted-2);display:flex;gap:12px;" class="fade-in d1"><span style="color:var(--co);">✗</span> Not a discount aggregator</li>
+            <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--muted-2);display:flex;gap:12px;" class="fade-in d2"><span style="color:var(--co);">✗</span> Not an app that asks your customers to download</li>
+            <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--muted-2);display:flex;gap:12px;" class="fade-in d3"><span style="color:var(--co);">✗</span> Not a commission model. We never take a cut.</li>
+            <li style="padding:10px 0;font-size:14px;color:var(--muted-2);display:flex;gap:12px;" class="fade-in d4"><span style="color:var(--co);">✗</span> Not a generic template that looks like 500 other venues</li>
+          </ul>
+        </div>
+        <div>
+          <div style="width:40px;height:3px;background:var(--accent);margin-bottom:32px;" class="fade-in"></div>
+          <h4 style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:16px;letter-spacing:-.02em;" class="fade-in d1">What we are</h4>
+          <ul style="list-style:none;">
+            <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--ink-soft);display:flex;gap:12px;" class="fade-in d1"><span style="color:var(--accent);font-weight:700;">✓</span> Wallet-native. Card lives in Apple/Google Wallet forever.</li>
+            <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--ink-soft);display:flex;gap:12px;" class="fade-in d2"><span style="color:var(--accent);font-weight:700;">✓</span> White-label. Your logo, your colour, your identity.</li>
+            <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--ink-soft);display:flex;gap:12px;" class="fade-in d3"><span style="color:var(--accent);font-weight:700;">✓</span> Your data. See who visits, how often, and what keeps them coming back.</li>
+            <li style="padding:10px 0;font-size:14px;color:var(--ink-soft);display:flex;gap:12px;" class="fade-in d4"><span style="color:var(--accent);font-weight:700;">✓</span> Free forever at core. No bait-and-switch, no lock-in.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 03: HOW IT WORKS ── -->
+    <section class="chapter" id="ch03">
+      <div class="ghost-num">03</div>
+      <div class="section-label fade-in">
+        <span class="lnum">03 —</span>
+        <span class="ltxt">How It Works</span>
+      </div>
+      <h2 class="section-headline fade-in d1">
+        Built in 5 minutes.<br>Running in 30 seconds.
+      </h2>
+      <p class="lead fade-in d2">
+        Your card is live in under 5 minutes. Your first cardholder enrolls in under 30 seconds. No developer. No hardware. No app download required from anyone.
+      </p>
+
+      <div class="pillars fade-in d2">
+        <div class="pillar-row fade-in">
+          <div class="p-num">01</div>
+          <div class="p-content">
+            <div class="p-tag green">4-Step Card Builder</div>
+            <h4>Design your card in 5 minutes</h4>
+            <p>Set your brand name, choose stamp or points model, customise rewards milestones, upload your logo and hero image, set your colour. No developer. No generic template. The card looks exactly like your venue.</p>
+          </div>
+        </div>
+        <div class="pillar-row fade-in d1">
+          <div class="p-num">02</div>
+          <div class="p-content">
+            <div class="p-tag blue">Scan &amp; Go · QR Code</div>
+            <h4>Enroll in 30 seconds. Zero staff required.</h4>
+            <p>Customer scans the QR code at your counter. Enrollment completes instantly. Card lands in Apple Wallet or Google Wallet. No staff typing. No phone number read aloud. Queue never slows.</p>
+          </div>
+        </div>
+        <div class="pillar-row fade-in d2">
+          <div class="p-num">03</div>
+          <div class="p-content">
+            <div class="p-tag pu">Wallet-Native</div>
+            <h4>The card lives in their phone forever</h4>
+            <p>Unlike apps that get deleted and websites that get forgotten, a Wallet pass stays on the lock screen. Every time a customer opens their phone, your brand is there. This is the most valuable real estate you can own for free.</p>
+          </div>
+        </div>
+        <div class="pillar-row fade-in d3">
+          <div class="p-num">04</div>
+          <div class="p-content">
+            <div class="p-tag co">Real-Time Dashboard</div>
+            <h4>See who your customers actually are</h4>
+            <p>See who's coming in, how often, and what they're redeeming. In real time. When you hit 100 cardholders, the dashboard asks: "Do you know who your top 10 are?" Most venues upgrade right there. Because for the first time, they can actually answer that question.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-row fade-in d2" style="margin-top:64px;">
+        <div class="stat-item">
+          <div class="stat-num">30s</div>
+          <div class="stat-label">Enrollment at counter. QR code scan.</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">5min</div>
+          <div class="stat-label">Card builder. Designed and live.</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">40–60%</div>
+          <div class="stat-label">Enrollment boost vs app-required flows</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">0%</div>
+          <div class="stat-label">Commission taken on any transaction</div>
+        </div>
+      </div>
+
+      <!-- Card design showcase -->
+      <div class="fade-in d3" style="margin-top:64px;">
+        <div class="eyebrow" style="margin-bottom:24px;">Every card looks like your venue. Not ours.</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+          <div style="overflow:hidden;background:var(--bg-3);border:1px solid var(--line);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/images/LoyaltyCardDesign_1.png" alt="Perks loyalty card design example 1"
+                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;"
+                 onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div style="overflow:hidden;background:var(--bg-3);border:1px solid var(--line);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/images/LoyaltyCardDesign_2.png" alt="Perks loyalty card design example 2"
+                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;"
+                 onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div style="overflow:hidden;background:var(--bg-3);border:1px solid var(--line);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/images/LoyaltyCardDesign_3.png" alt="Perks loyalty card design example 3"
+                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;"
+                 onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted-2);margin-top:12px;font-style:normal;letter-spacing:.05em;">Sample card designs, each built for a specific venue. Your card is designed entirely to your brand.</p>
+      </div>
+    </section>
+
+    <!-- ── CH 04: PERKS MOMENTS ── -->
+    <section class="chapter" id="ch04" style="background:var(--bg-2);">
+      <div class="ghost-num">04</div>
+      <div class="section-label fade-in">
+        <span class="lnum">04 —</span>
+        <span class="ltxt">Perks Moments</span>
+      </div>
+      <h2 class="section-headline fade-in d1">
+        Fill slow periods without<br><span class="punch">discounting to strangers.</span>
+      </h2>
+      <p class="lead fade-in d2">
+        Every venue loses money in dead windows: a slow Tuesday afternoon, a rainy Thursday, end-of-day surplus. The only tools available today are deep discounts on EatClub or mystery bags on TGTG. Both destroy margin and brand. Perks Moments is the alternative.
+      </p>
+
+      <div class="three-col fade-in d2">
+        <div class="tc-card">
+          <div class="tc-tag" style="color:var(--co);">— The Old Way</div>
+          <h4>EatClub / TGTG</h4>
+          <p>Mass-blast strangers with 30–50% discounts. Platform takes 10% commission. Customer becomes loyal to the deal. Not you. When you stop discounting, they vanish.</p>
+        </div>
+        <div class="tc-card" style="border-color:var(--accent);">
+          <div class="tc-tag" style="color:var(--accent);">— Perks Moments</div>
+          <h4>A personal nudge to your regulars</h4>
+          <p>You have a slow afternoon. Happy hour starting in an hour. A cardholder's birthday today. Perks looks at your cardholder history and sends them a personal nudge framed as access, not a deal.</p>
+        </div>
+        <div class="tc-card">
+          <div class="tc-tag" style="color:var(--gold);">— The Result</div>
+          <h4>Access, not desperation</h4>
+          <p>"Blue Stone Lane has an open afternoon." Your regular gets a personal invitation. They already belong. You fill capacity without signalling desperation or cutting margin. The venue never looks quiet.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px;" class="fade-in d3">
+        <div class="manifesto-block" style="margin-top:0;display:flex;align-items:center;">
+          <p>
+            The consumer who visits every Thursday at 3pm gets a personal invitation at 2:45pm. <span>Not a mass broadcast to strangers. A private message to someone who already cares.</span>
+          </p>
+        </div>
+        <div style="overflow:hidden;background:var(--bg-3);border:1px solid var(--line);min-height:280px;display:flex;align-items:center;justify-content:center;">
+          <img src="assets/images/Mockup3.png" alt="Customer holding phone with Perks loyalty card"
+               style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 05: THE HIVE ── -->
+    <section class="chapter" id="ch05">
+      <div class="ghost-num">05</div>
+      <div class="section-label fade-in">
+        <span class="lnum">05 —</span>
+        <span class="ltxt">The Hive</span>
+        <span style="margin-left:12px;background:var(--gold);color:#191A1D;font-size:10px;font-weight:800;letter-spacing:.1em;padding:3px 10px;border-radius:99px;text-transform:uppercase;">Launching Soon</span>
+      </div>
+      <h2 class="section-headline fade-in d1">
+        Your regulars.<br>Connected to the whole city.
+      </h2>
+      <p class="lead fade-in d2">
+        The loyalty card is live now. What comes next is The Hive, Melbourne's discovery and loyalty network, launching later this year. Founding venues get their cardholders inside from day one. Everyone who joins after builds their audience from scratch.
+      </p>
+
+      <div class="three-col fade-in d2">
+        <div class="tc-card">
+          <div class="tc-tag" style="color:var(--accent);">Coming — Pillar 01</div>
+          <h4>Perks Moments Feed</h4>
+          <p>A live city map showing what's on at connected venues right now. Not a discount list. A pulse. "Cold brew tasting for cardholders at 4pm." Your founding cardholders will be first to see it.</p>
+        </div>
+        <div class="tc-card">
+          <div class="tc-tag" style="color:var(--bl);">Coming — Pillar 02</div>
+          <h4>Events &amp; Workshop Discovery</h4>
+          <p>Event hosts match with venues that share their audience. Perks handles the pairing and promotes to relevant Hive users. Your cardholders get priority access before the public.</p>
+        </div>
+        <div class="tc-card">
+          <div class="tc-tag" style="color:var(--pi);">Coming — Pillar 03</div>
+          <h4>Creator Marketplace</h4>
+          <p>Post a content gig inside the Hive: "2 Reels at our venue — free brunch." Micro-creators apply, you pick. Authentic UGC at zero cash cost. Founding venues get first access at launch.</p>
+        </div>
+      </div>
+
+      <!-- Poster strip -->
+      <div class="fade-in d3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;">
+        <div style="overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;">
+          <img src="assets/images/Poster1.png" alt="Perks Hive campaign visual"
+               style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;"
+               onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;">
+          <img src="assets/images/Poster2.png" alt="Perks Hive campaign visual"
+               style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;"
+               onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;">
+          <img src="assets/images/Poster4.png" alt="Perks Hive campaign visual"
+               style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;"
+               onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted-2);margin-top:12px;letter-spacing:.05em;">A preview of the content The Hive will generate across Melbourne. Founding venues are first in when it launches.</p>
+    </section>
+
+    <!-- ── CH 06: COMPETITIVE POSITION ── -->
+    <section class="chapter" id="ch06">
+      <div class="ghost-num">06</div>
+      <div class="section-label fade-in">
+        <span class="lnum">06 —</span>
+        <span class="ltxt">Competitive Position</span>
+      </div>
+      <h2 class="section-headline fade-in d1">
+        Every tool you know<br><span class="punch">is missing something.</span>
+      </h2>
+      <p class="lead fade-in d2">
+        EatClub fills slow tables with discounts. Square handles payments. PassKit issues digital cards. None of them build a consumer network, activate your regulars, and let you keep your margin. All at once.
+      </p>
+
+      <table class="comp-table fade-in d2">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th class="perks-col">Perks Hive</th>
+            <th>EatClub / TGTG</th>
+            <th>Square Loyalty</th>
+            <th>PassKit / Loopy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wallet-native card (no app)</td>
+            <td class="y">✓</td>
+            <td class="n">✗</td>
+            <td class="n">✗</td>
+            <td class="y">✓</td>
+          </tr>
+          <tr>
+            <td>White-label venue branding</td>
+            <td class="y">✓</td>
+            <td class="n">✗</td>
+            <td class="n">Generic</td>
+            <td class="y">✓</td>
+          </tr>
+          <tr>
+            <td>Zero commission model</td>
+            <td class="y">✓</td>
+            <td class="n">✗ ~10%</td>
+            <td class="y">✓</td>
+            <td class="y">✓</td>
+          </tr>
+          <tr>
+            <td>Venue owns all customer data</td>
+            <td class="y">✓</td>
+            <td class="n">✗</td>
+            <td class="n">Partial</td>
+            <td class="y">✓</td>
+          </tr>
+          <tr>
+            <td>AI dispatch to cardholders</td>
+            <td class="y">✓</td>
+            <td class="n">✗</td>
+            <td class="n">✗</td>
+            <td class="n">✗</td>
+          </tr>
+          <tr>
+            <td>Consumer discovery network</td>
+            <td class="y">✓</td>
+            <td class="y">Discount feed</td>
+            <td class="n">✗</td>
+            <td class="n">✗</td>
+          </tr>
+          <tr>
+            <td>Creator marketplace</td>
+            <td class="y">✓</td>
+            <td class="n">✗</td>
+            <td class="n">✗</td>
+            <td class="n">✗</td>
+          </tr>
+          <tr>
+            <td>Free forever at core</td>
+            <td class="y">✓</td>
+            <td class="n">Commission</td>
+            <td class="n">Paid add-on</td>
+            <td class="n">Paid SaaS</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ── CH 07: THE MARKET ── -->
+    <section class="chapter" id="ch07">
+      <div class="ghost-num">07</div>
+      <div class="section-label fade-in">
+        <span class="lnum">07 —</span>
+        <span class="ltxt">The Market</span>
+      </div>
+      <h2 class="section-headline fade-in d1">
+        Melbourne first.<br>Built for independent venues.
+      </h2>
+      <p class="lead fade-in d2">
+        We are building in Melbourne: Fitzroy, Collingwood, Brunswick, Richmond, Northcote, Carlton, Prahran, South Yarra, Abbotsford. The venues that define this city. The ones that gave it character. We are not going to the chains.
+      </p>
+
+      <div class="roadmap fade-in d2">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-phases">
+          <div class="phase active">
+            <div class="phase-dot"></div>
+            <div class="phase-label">M1 NOW</div>
+            <div class="phase-desc">Founding venue cohort. 1–10 venues. Melbourne.</div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot"></div>
+            <div class="phase-label">M2</div>
+            <div class="phase-desc">50 venues. Consumer app launch. Hive feed live.</div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot"></div>
+            <div class="phase-label">M3</div>
+            <div class="phase-desc">200+ venues. Perks Moments AI dispatch. Melbourne-wide.</div>
+          </div>
+          <div class="phase">
+            <div class="phase-dot"></div>
+            <div class="phase-label">M4+</div>
+            <div class="phase-desc">Multi-location. Data intelligence. Ecosystem scale.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="manifesto-block fade-in d3" style="margin-top:64px;">
+        <p>
+          We are looking for the <span>founding 10 venues</span> in Melbourne that believe independent venues deserve what the chains have had for years. They get in at the founding rate, first access to every feature we ship, and a place at the centre of a network they helped build.
+        </p>
+        <div class="manifesto-sig">— Logan Hoang, Founder</div>
+      </div>
+    </section>
+
+    <!-- ── CTA BLOCK → OFFER VIEW ── -->
+    <div class="cta-block">
+      <div class="eyebrow" style="margin-bottom:20px;">Founding Venue Offer</div>
+      <h2 style="font-size:clamp(28px,3vw,44px);font-weight:900;letter-spacing:-.035em;color:var(--ink);margin-bottom:16px;">
+        We didn't send this to everyone.
+      </h2>
+      <p style="font-size:15px;color:var(--muted);max-width:480px;margin:0 auto 40px;">
+        We came to you specifically. See exactly why, and what we're offering.
+      </p>
+      <div role="button" tabindex="0" onclick="return window.openOffer();"
+           class="cta-btn"
+           style="display:inline-block;cursor:pointer;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:rgba(19,192,93,.3);">
+        <span>See the Founding Venue Offer →</span>
+      </div>
+    </div>
+
+  </main>
+</div><!-- /.layout -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     VIEW 2 — FOUNDING VENUE OFFER
+══════════════════════════════════════════════════════════════ -->
+<div class="offer-view" id="offerView">
+
+  <!-- OFFER HERO -->
+  <section class="offer-section" style="min-height:100vh;display:flex;align-items:center;padding:140px 80px;">
+    <div class="hf">
+      <div class="hf-mark tl">+</div>
+      <div class="hf-mark tr">+</div>
+      <div class="hf-mark bl">+</div>
+      <div class="hf-mark br">+</div>
+      <div class="hf-label tl">PH-OFFER · FOUNDING VENUE</div>
+      <div class="hf-label tr">v1.0</div>
+      <div class="hf-label bl">May 2026</div>
+      <div class="hf-label br">EXPIRES IN 14 DAYS</div>
+    </div>
+    <div class="particles">
+      <span style="left:5%;animation-delay:0s"></span>
+      <span style="left:18%;animation-delay:4s"></span>
+      <span style="left:35%;animation-delay:7s"></span>
+      <span style="left:62%;animation-delay:2s"></span>
+      <span style="left:78%;animation-delay:9s"></span>
+      <span style="left:88%;animation-delay:5s"></span>
+    </div>
+    <div style="position:relative;z-index:1;width:100%;display:flex;align-items:center;gap:80px;">
+      <div style="flex:1;min-width:0;">
+        <div class="cobrand-mark" style="justify-content:flex-start;">
+          <span class="venue-name">Your Venue</span>
+          <span class="x-mark">×</span>
+          <img src="assets/images/Logo_long.png" alt="Perks Hive" style="height:40px;" onerror="this.outerHTML='<span style=&quot;font-size:36px;font-weight:900;color:#13C05D;letter-spacing:-.03em;&quot;>Perks Hive</span>'">
+        </div>
+        <div class="section-label">
+          <span class="lnum">OFFER —</span>
+          <span class="ltxt">Founding Venue Proposal · 2026</span>
+        </div>
+        <div class="meta-strip">
+          <div class="meta-item">From · <strong>Logan Hoang, Perks Hive</strong></div>
+          <div class="meta-item">To · <strong>Independent Venue Owners</strong></div>
+          <div class="meta-item">Date · <strong>May 2026</strong></div>
+          <div class="meta-item">Valid · <strong>14 days</strong></div>
+        </div>
+      </div>
+      <div style="flex-shrink:0;width:280px;">
+        <img src="assets/images/Mockup3.png" alt="Perks loyalty card on phone"
+             style="width:100%;display:block;filter:drop-shadow(0 32px 64px rgba(19,192,93,.15)) drop-shadow(0 8px 24px rgba(0,0,0,.6));">
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER SECTION 01 — WHY THIS VENUE -->
+  <section class="offer-section">
+    <div class="ghost-num">01</div>
+    <div class="section-label fade-in">
+      <span class="lnum">01 —</span>
+      <span class="ltxt">Why You</span>
+    </div>
+    <h2 class="section-headline fade-in d1">
+      We don't pitch everyone.<br><span class="punch">We came to you.</span>
+    </h2>
+    <p class="lead fade-in d2">
+      We looked at every venue in this area. We chose to start here. Three reasons.
+    </p>
+    <div class="three-col">
+      <div class="tc-card fade-in">
+        <div class="tc-tag">— Reason 01</div>
+        <h4>Strong Visual Identity</h4>
+        <p>You have built something that looks like something. The aesthetic, the product, the space. It communicates a point of view. The Perks card should carry that identity. Not a generic template. Your brand.</p>
+      </div>
+      <div class="tc-card fade-in d1">
+        <div class="tc-tag">— Reason 02</div>
+        <h4>The Right Customer Base</h4>
+        <p>Your customers are 18–35, phone-native, and already loyal to you out of habit. They just have no formal channel to express that loyalty. Give them a card worth carrying, and they will carry it everywhere.</p>
+      </div>
+      <div class="tc-card fade-in d2">
+        <div class="tc-tag">— Reason 03</div>
+        <h4>You Kept Your Margin</h4>
+        <p>You are not on EatClub. You are not giving Uber Eats a cut of every order. You made the call to protect your brand and your margin. Perks is built for venues that made that decision and have no intention of undoing it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="offer-section" style="background:var(--bg-2);">
+    <div class="manifesto-block" style="max-width:760px;margin:0 auto;">
+      <p>
+        This is not a stamp card. This is not an app nobody will download. This is not a discount platform that makes you look desperate. <span>This is the digital brand soul of your venue. Living in every regular's pocket, activated whenever you need to fill a table, owned entirely by you.</span>
+      </p>
+      <div class="manifesto-sig">— Logan Hoang, Founder · Perks Hive</div>
+    </div>
+  </section>
+
+  <!-- OFFER SECTION 02 — CAPABILITY STACK -->
+  <section class="offer-section">
+    <div class="ghost-num">02</div>
+    <div class="section-label fade-in">
+      <span class="lnum">02 —</span>
+      <span class="ltxt">What Perks Brings</span>
+    </div>
+    <h2 class="section-headline fade-in d1">
+      Everything your venue needs.<br>Nothing it doesn't.
+    </h2>
+    <div class="pillars">
+      <div class="pillar-row fade-in">
+        <div class="p-num">01</div>
+        <div class="p-content">
+          <div class="p-tag blue">Infrastructure</div>
+          <h4>Wallet-native card. No app download ever required.</h4>
+          <p>Apple Wallet and Google Wallet integration built in. The card is on their lock screen from the moment they scan your QR code. Every app requires a download. Wallet requires nothing. It ships with every iPhone and Android on Earth.</p>
+        </div>
+      </div>
+      <div class="pillar-row fade-in d1">
+        <div class="p-num">02</div>
+        <div class="p-content">
+          <div class="p-tag pu">Brand</div>
+          <h4>True white-label. The card looks like you, not us.</h4>
+          <p>Your logo. Your colour. Your hero image. Your milestone rewards. The Perks identity steps completely back. When a customer shows their card, and they will show it, they're showing off your venue. Not an app.</p>
+        </div>
+      </div>
+      <div class="pillar-row fade-in d2">
+        <div class="p-num">03</div>
+        <div class="p-content">
+          <div class="p-tag pi">AI Dispatch</div>
+          <h4>Perks Moments. Fill capacity without discounting.</h4>
+          <p>When you have a slow afternoon, happy hour starting, or a birthday cardholder walking in today, Perks sends them a personal push framed as access. Not a mass blast. Not a discount. A personal invitation to someone who already belongs.</p>
+        </div>
+      </div>
+      <div class="pillar-row fade-in d3">
+        <div class="p-num">04</div>
+        <div class="p-content">
+          <div class="p-tag co">Ownership</div>
+          <h4>All your data. Permanently yours.</h4>
+          <p>Every cardholder record, visit pattern, and redemption event belongs to you. We do not sell it. We do not hold it back behind a paywall. It is yours from day one and stays yours if you ever leave the platform.</p>
+        </div>
+      </div>
+      <div class="pillar-row fade-in d3">
+        <div class="p-num">05</div>
+        <div class="p-content">
+          <div class="p-tag" style="background:rgba(234,252,159,.12);color:var(--lime);">Design</div>
+          <h4>We design everything with you. Card, poster, the works.</h4>
+          <p>You don't need a designer on staff. We build your loyalty card to match your brand and create the QR poster you put on your counter or window. You show up, we handle the setup. Most founding venues are live within 48 hours of saying yes.</p>
+        </div>
+      </div>
+      <div class="pillar-row fade-in d3" style="border-bottom:none;">
+        <div class="p-num">06</div>
+        <div class="p-content">
+          <div class="p-tag" style="background:rgba(236,93,73,.12);color:var(--co);">Square POS</div>
+          <h4>Connects to your Square POS. Your loyalty data and sales data in one place.</h4>
+          <p>If you run Square, Perks plugs straight in. Every visit, every redemption, every point earned lines up with your actual transaction records. No manual reconciliation. No double entry. Your loyalty program and your POS finally speak the same language.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER SECTION 03 — FOUNDING VENUE PLAN -->
+  <section class="offer-section" style="background:var(--bg-2);">
+    <div class="ghost-num">03</div>
+    <div class="section-label fade-in">
+      <span class="lnum">03 —</span>
+      <span class="ltxt">Founding Venue Plan</span>
+    </div>
+    <h2 class="section-headline fade-in d1">
+      Start free today.<br><span class="lgold">Lock the rate before it opens.</span>
+    </h2>
+    <p class="lead fade-in d2">
+      The loyalty card is live right now. You can have yours built, printed on a QR poster, and enrolling customers this week, for free, with no credit card. Founding venues who upgrade to Pro lock in $39/month permanently, before the platform opens to everyone else at $69.
+    </p>
+
+    <div class="price-grid fade-in d2">
+      <div class="price-card">
+        <div class="price-tier">Core Plan</div>
+        <div class="price-amount">$0<span>/mo</span></div>
+        <div class="price-period">Free forever. No credit card required.</div>
+        <ul class="price-list">
+          <li>Card builder + full design control</li>
+          <li>Apple Wallet + Google Wallet. Live now.</li>
+          <li>QR code enrollment. Scan and go.</li>
+          <li>Square POS integration. Data stays aligned.</li>
+          <li>Basic analytics (visits, redemptions)</li>
+          <li>Unlimited cardholders</li>
+          <li>Ready to launch this week</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Founding Venue Rate</div>
+        <div class="price-tier" style="margin-top:20px;">Pro Plan</div>
+        <div class="price-amount" style="color:var(--accent);">$39<span>/mo</span></div>
+        <div class="price-period" style="color:var(--muted);">Locked forever · Opens at $69/month</div>
+        <ul class="price-list">
+          <li>Everything in Core</li>
+          <li>Card + poster designed with you. We handle it.</li>
+          <li>Push notifications to your cardholders. Happy hour, birthday promos, slow table fills.</li>
+          <li>Advanced analytics + top cardholder insights</li>
+          <li>Priority onboarding. Live within 48 hours.</li>
+          <li>First seat inside The Hive when it launches</li>
+          <li>Your cardholder base is already built on day one</li>
+          <li>Campaign Boost access. Reach all Hive users.</li>
+        </ul>
+      </div>
+      <div class="price-card" style="border-color:var(--gold);opacity:.85;">
+        <div class="price-badge" style="background:var(--gold);color:#191A1D;">Coming Soon</div>
+        <div class="price-tier" style="margin-top:20px;">The Hive</div>
+        <div class="price-amount" style="font-size:28px;line-height:1.2;">Melbourne's<br>Discovery Feed</div>
+        <div class="price-period" style="color:var(--muted);">Launching later this year</div>
+        <ul class="price-list">
+          <li>Your venue visible to all Hive users</li>
+          <li>Perks Moments. Fill slow tables, not just your regulars.</li>
+          <li>Creator marketplace. Content gigs from $15.</li>
+          <li>Founding venues enter with their audience already built</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="manifesto-block fade-in d3" style="margin-top:48px;">
+      <p>
+        When The Hive launches, every venue starts from zero. Except the ones already on the platform. <span>Your cardholders don't disappear. They carry straight into the network. That head start is what founding venue status actually means.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- OFFER SECTION 04 — ECONOMICS -->
+  <section class="offer-section">
+    <div class="ghost-num">04</div>
+    <div class="section-label fade-in">
+      <span class="lnum">04 —</span>
+      <span class="ltxt">The Economics</span>
+    </div>
+    <h2 class="section-headline fade-in d1">
+      What this actually costs<br>versus what it returns.
+    </h2>
+    <p class="lead fade-in d2">
+      At $39/month founding rate, this is $1.30 per day. One extra coffee sale covers the monthly cost. Everything above that is margin.
+    </p>
+
+    <div class="stat-row fade-in d2">
+      <div class="stat-item">
+        <div class="stat-num">$1.30</div>
+        <div class="stat-label">Per day at founding rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">$0</div>
+        <div class="stat-label">Commission on any sale. Ever.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100+</div>
+        <div class="stat-label">Cardholders before first upgrade prompt</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Data points owned by the venue</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:64px;">
+      <div>
+        <div class="accent-rule fade-in"></div>
+        <h4 style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:16px;letter-spacing:-.02em;" class="fade-in d1">Compare to alternatives</h4>
+        <div class="pillars" style="margin-top:0;">
+          <div class="pillar-row fade-in" style="padding:20px 0;">
+            <div class="p-num" style="color:var(--co);font-size:13px;">EatClub</div>
+            <div class="p-content"><p style="font-size:13px;">10% commission on every discounted sale. You lose margin AND you lose the customer relationship. They come back for the deal, not you.</p></div>
+          </div>
+          <div class="pillar-row fade-in d1" style="padding:20px 0;">
+            <div class="p-num" style="color:var(--co);font-size:13px;">Square Loyalty</div>
+            <div class="p-content"><p style="font-size:13px;">$49/month add-on for a generic card that carries Square's branding. Not yours. No discovery feed. No consumer network.</p></div>
+          </div>
+          <div class="pillar-row fade-in d2" style="padding:20px 0;">
+            <div class="p-num" style="color:var(--co);font-size:13px;">Paper Stamps</div>
+            <div class="p-content"><p style="font-size:13px;">Free to print. Zero data. Cards get lost. You have no idea who your regulars are, what they order, or when they'll return.</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="width:40px;height:3px;background:var(--accent);margin-bottom:32px;" class="fade-in"></div>
+        <h4 style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:16px;letter-spacing:-.02em;" class="fade-in d1">Perks at $39/month</h4>
+        <ul style="list-style:none;" class="fade-in d2">
+          <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--ink-soft);display:flex;gap:12px;"><span style="color:var(--accent);font-weight:700;">✓</span> Full design control. Your brand, not ours.</li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--ink-soft);display:flex;gap:12px;"><span style="color:var(--accent);font-weight:700;">✓</span> Push notifications to cardholders via Perks Moments</li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--ink-soft);display:flex;gap:12px;"><span style="color:var(--accent);font-weight:700;">✓</span> Real-time analytics and customer insights</li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--line-2);font-size:14px;color:var(--ink-soft);display:flex;gap:12px;"><span style="color:var(--accent);font-weight:700;">✓</span> Featured placement on the Hive discovery feed</li>
+          <li style="padding:10px 0;font-size:14px;color:var(--ink-soft);display:flex;gap:12px;"><span style="color:var(--accent);font-weight:700;">✓</span> Rate locked forever. Never increases.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER SECTION 05 — TIMELINE -->
+  <section class="offer-section" style="background:var(--bg-2);">
+    <div class="ghost-num">05</div>
+    <div class="section-label fade-in">
+      <span class="lnum">05 —</span>
+      <span class="ltxt">Timeline</span>
+    </div>
+    <h2 class="section-headline fade-in d1">
+      You could be live<br>this week.
+    </h2>
+    <p class="lead fade-in d2">
+      No long onboarding. No technical setup. No hardware to order. The card builder takes 5 minutes. Your QR code is ready to print the same day.
+    </p>
+
+    <div class="pillars fade-in d2">
+      <div class="pillar-row">
+        <div class="p-num" style="color:var(--gold);font-family:monospace;">Day 1</div>
+        <div class="p-content">
+          <h4>Onboarding call (30 min)</h4>
+          <p>We walk you through the card builder, set up your design, confirm your reward milestones, and send you your QR code ready to print. Done in 30 minutes.</p>
+        </div>
+      </div>
+      <div class="pillar-row">
+        <div class="p-num" style="color:var(--gold);font-family:monospace;">Day 2–3</div>
+        <div class="p-content">
+          <h4>Card live. QR code printed.</h4>
+          <p>Your card is live and enrollable from day one. Print the QR code, place it at the counter. Staff briefed in 2 minutes. Scan here, card appears. That's the whole script.</p>
+        </div>
+      </div>
+      <div class="pillar-row">
+        <div class="p-num" style="color:var(--gold);font-family:monospace;">Week 2</div>
+        <div class="p-content">
+          <h4>First cardholders. First data.</h4>
+          <p>Watch your first real customer data appear in the dashboard. Who visited. How many times. What they redeemed. You have never seen this before from a loyalty program.</p>
+        </div>
+      </div>
+      <div class="pillar-row">
+        <div class="p-num" style="color:var(--gold);font-family:monospace;">Month 3</div>
+        <div class="p-content">
+          <h4>100 cardholders. The dashboard asks the question.</h4>
+          <p>"You have 100 customers. Do you know who your top 10 are?" That's when the data becomes strategy. That's when most founding venues upgrade to Pro without us asking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER SECTION 06 — CO-BRAND VISION -->
+  <section class="offer-section">
+    <div class="ghost-num">06</div>
+    <div class="section-label fade-in">
+      <span class="lnum">06 —</span>
+      <span class="ltxt">Co-brand Vision</span>
+    </div>
+    <h2 class="section-headline fade-in d1">
+      The card in their wallet<br>is the ad that never ends.
+    </h2>
+    <p class="lead fade-in d2">
+      Every Perks card carries a permanent "Discover more with Perks Hive" printed below the QR code. It's a digital card, one side only, and that one line turns every scan into a discovery prompt for the whole Hive. As your cardholder base grows, our consumer network grows with it at zero cost to either of us.
+    </p>
+
+    <div class="three-col fade-in d2">
+      <div class="tc-card">
+        <div class="tc-tag" style="color:var(--accent);">Near Term</div>
+        <h4>Founding Venue Badge</h4>
+        <p>Featured placement on the Hive discovery feed when the consumer app launches. "Founding venues" are the first batch consumers see — positioned as the venues that built this city's loyalty network.</p>
+      </div>
+      <div class="tc-card">
+        <div class="tc-tag" style="color:var(--bl);">Medium Term</div>
+        <h4>Perks Moments Priority</h4>
+        <p>When the AI dispatch layer goes live, founding venues get first access and first in the queue for consumer Hive users who haven't discovered your venue yet.</p>
+      </div>
+      <div class="tc-card">
+        <div class="tc-tag" style="color:var(--pi);">Long Term</div>
+        <h4>Creator Gig Listing</h4>
+        <p>Post content gigs on the Hive creator marketplace. Micro-creators in Melbourne apply. You choose. Authentic UGC for your venue at zero cash cost. Just a meal or a session.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE CTA -->
+  <div class="cta-block" style="padding:120px 80px;">
+    <div class="eyebrow" style="margin-bottom:20px;color:var(--gold);">Founding Partner Exclusive</div>
+    <h2 style="font-size:clamp(28px,3vw,44px);font-weight:900;letter-spacing:-.035em;color:var(--ink);margin-bottom:16px;">
+      Numbers. Details. Everything.
+    </h2>
+    <p style="font-size:15px;color:var(--muted);max-width:480px;margin:0 auto 40px;">
+      Company info, full pricing breakdown, revenue projections, tech stack, and a personal sign-off from Logan. For venues that need to see it all before they decide.
+    </p>
+    <div role="button" tabindex="0" onclick="return window.openDeep();"
+         class="cta-btn"
+         style="display:inline-block;cursor:pointer;user-select:none;touch-action:manipulation;">
+      <span>Open Deep Dive — Confidential →</span>
+    </div>
+    <div role="button" tabindex="0" onclick="return window.closeOffer();"
+         class="cta-secondary"
+         style="display:inline-block;cursor:pointer;user-select:none;touch-action:manipulation;margin-left:16px;vertical-align:middle;">
+      <span>← Back to Overview</span>
+    </div>
+  </div>
+
+</div><!-- /.offer-view -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     VIEW 3 — DEEP DIVE (CONFIDENTIAL)
+══════════════════════════════════════════════════════════════ -->
+<div class="deep-view" id="deepView">
+
+  <!-- DEEP HERO -->
+  <section class="deep-section" style="min-height:80vh;display:flex;align-items:center;padding:140px 80px;background:var(--bg-2);">
+    <div class="hf">
+      <div class="hf-mark tl">+</div>
+      <div class="hf-mark tr">+</div>
+      <div class="hf-mark bl">+</div>
+      <div class="hf-mark br">+</div>
+      <div class="hf-label tl">PH-DD · CONFIDENTIAL</div>
+      <div class="hf-label tr">FOUNDING PARTNER ONLY</div>
+      <div class="hf-label bl">ABN · 82 501 453 599</div>
+      <div class="hf-label br">Do not distribute</div>
+    </div>
+    <div style="position:relative;z-index:1;max-width:700px;">
+      <div class="eyebrow fade-in on" style="color:var(--co);">Confidential · Founding Partner Exclusive</div>
+      <h1 class="hero-title fade-in on d1">Deep Dive</h1>
+      <p class="lead fade-in on d2">
+        The full numbers. The company behind the product. What this looks like when it scales. If you want to see it all before you decide, it's all here.
+      </p>
+      <div class="meta-strip fade-in on d3">
+        <div class="meta-item">Entity · <strong>Perks Hive</strong></div>
+        <div class="meta-item">ABN · <strong>82 501 453 599</strong></div>
+        <div class="meta-item">Market · <strong>Melbourne, AU</strong></div>
+        <div class="meta-item">Stage · <strong>Active Pilot M1</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DD 01 — COMPANY INFO -->
+  <section class="deep-section">
+    <div class="ghost-num">01</div>
+    <div class="section-label fade-in">
+      <span class="lnum">01 —</span>
+      <span class="ltxt">Company</span>
+    </div>
+    <h2 class="section-headline fade-in d1">About Perks Hive</h2>
+
+    <div class="two-col fade-in d2">
+      <div>
+        <div class="pillars" style="margin-top:0;">
+          <div class="pillar-row" style="padding:20px 0;">
+            <div class="p-num" style="font-size:10px;">Entity</div>
+            <div class="p-content"><p style="font-size:14px;color:var(--ink-soft);font-weight:600;">Perks Hive</p></div>
+          </div>
+          <div class="pillar-row" style="padding:20px 0;">
+            <div class="p-num" style="font-size:10px;">ABN</div>
+            <div class="p-content"><p style="font-size:14px;color:var(--ink-soft);font-weight:600;">82 501 453 599</p></div>
+          </div>
+          <div class="pillar-row" style="padding:20px 0;">
+            <div class="p-num" style="font-size:10px;">Type</div>
+            <div class="p-content"><p style="font-size:14px;color:var(--ink-soft);">Sole Trader · ABN 82 501 453 599</p></div>
+          </div>
+          <div class="pillar-row" style="padding:20px 0;">
+            <div class="p-num" style="font-size:10px;">Markets</div>
+            <div class="p-content"><p style="font-size:14px;color:var(--ink-soft);">Melbourne, Australia</p></div>
+          </div>
+          <div class="pillar-row" style="padding:20px 0;">
+            <div class="p-num" style="font-size:10px;">Founder</div>
+            <div class="p-content"><p style="font-size:14px;color:var(--ink-soft);">Logan Hoang — Strategy, product, sales, investor relations, brand, frontend</p></div>
+          </div>
+          <div class="pillar-row" style="padding:20px 0;border-bottom:none;">
+            <div class="p-num" style="font-size:10px;">Stage</div>
+            <div class="p-content"><p style="font-size:14px;color:var(--ink-soft);">Active pilot M1. Building our founding venue cohort. No paying venues yet. This offer is how we build the foundation.</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="accent-rule"></div>
+        <h4 style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:16px;letter-spacing:-.02em;">The Team</h4>
+        <div class="pillars" style="margin-top:0;">
+          <div class="pillar-row" style="padding:16px 0;">
+            <div class="p-num" style="font-size:10px;">Logan</div>
+            <div class="p-content"><p style="font-size:13px;color:var(--muted);">Founder. Strategy, sales, product, brand.</p></div>
+          </div>
+          <div class="pillar-row" style="padding:16px 0;">
+            <div class="p-num" style="font-size:10px;">Khánh</div>
+            <div class="p-content"><p style="font-size:13px;color:var(--muted);">Core backend — Supabase, wallet pass API, Square integration.</p></div>
+          </div>
+          <div class="pillar-row" style="padding:16px 0;">
+            <div class="p-num" style="font-size:10px;">Bình</div>
+            <div class="p-content"><p style="font-size:13px;color:var(--muted);">Consumer app — Next.js WebApp, enrollment flow, Stripe, analytics.</p></div>
+          </div>
+          <div class="pillar-row" style="padding:16px 0;border-bottom:none;">
+            <div class="p-num" style="font-size:10px;">Haimy</div>
+            <div class="p-content"><p style="font-size:13px;color:var(--muted);">Content and marketing — social media, creator program, campaigns.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DD 02 — PRICING TIERS FULL -->
+  <section class="deep-section" style="background:var(--bg-2);">
+    <div class="ghost-num">02</div>
+    <div class="section-label fade-in">
+      <span class="lnum">02 —</span>
+      <span class="ltxt">Full Pricing</span>
+    </div>
+    <h2 class="section-headline fade-in d1">Every tier. Every number.</h2>
+    <p class="lead fade-in d2">No hidden costs. No transaction fees. No lock-in contracts.</p>
+
+    <table class="comp-table fade-in d2" style="margin-top:40px;">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Core (Free)</th>
+          <th class="perks-col">Pro — $39 Founding / $69 Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Card builder + full design</td><td class="y">✓ Unlimited</td><td class="y">✓ Unlimited</td></tr>
+        <tr><td>Apple Wallet + Google Wallet</td><td class="y">✓</td><td class="y">✓</td></tr>
+        <tr><td>QR code enrollment (Scan &amp; Go)</td><td class="y">✓</td><td class="y">✓</td></tr>
+        <tr><td>Unlimited cardholders</td><td class="y">✓</td><td class="y">✓</td></tr>
+        <tr><td>Basic analytics</td><td class="y">✓ Visits + redemptions</td><td class="y">✓ Full dashboard</td></tr>
+        <tr><td>Push notification tokens (Perks Moments)</td><td class="n">✗ Limited</td><td class="y">✓ Included allocation</td></tr>
+        <tr><td>Top cardholder insights</td><td class="n">✗</td><td class="y">✓</td></tr>
+        <tr><td>Hive discovery feed placement</td><td>Standard</td><td class="y">Featured — Founding badge</td></tr>
+        <tr><td>Priority support + onboarding</td><td class="n">✗</td><td class="y">✓</td></tr>
+        <tr><td>Campaign Boost access</td><td class="n">✗</td><td>$100/campaign when live</td></tr>
+        <tr><td>Commission on sales</td><td class="y">$0</td><td class="y">$0</td></tr>
+        <tr><td>Data ownership</td><td class="y">100% yours</td><td class="y">100% yours</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- DD 03 — REVENUE SCENARIOS -->
+  <section class="deep-section">
+    <div class="ghost-num">03</div>
+    <div class="section-label fade-in">
+      <span class="lnum">03 —</span>
+      <span class="ltxt">Revenue Scenarios</span>
+    </div>
+    <h2 class="section-headline fade-in d1">What this looks like<br>at scale.</h2>
+    <p class="lead fade-in d2">Conservative projections. These are what the platform is worth. Not what we promise you.</p>
+
+    <table class="comp-table fade-in d2">
+      <thead>
+        <tr>
+          <th>Milestone</th>
+          <th>Active Venues</th>
+          <th class="perks-col">Platform MRR</th>
+          <th>Network Effect</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M1 (now, 3 months)</td>
+          <td>1–10</td>
+          <td>$295</td>
+          <td>Investment phase. Founding cohort building the base.</td>
+        </tr>
+        <tr>
+          <td>M2 (6 months)</td>
+          <td>50</td>
+          <td>$6,862</td>
+          <td>Consumer app launches. Hive feed live. Network starts.</td>
+        </tr>
+        <tr>
+          <td>M3 (12 months)</td>
+          <td>200+</td>
+          <td>$102,373</td>
+          <td>Perks Moments AI dispatch live. Creator marketplace. Data intelligence.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="manifesto-block fade-in d2" style="margin-top:48px;">
+      <p>
+        Founding venues that join at M1 are not just getting a loyalty card. They are <span>locking the founding rate on a platform whose unit economics improve with every venue that joins after them.</span> The network is worth more when it is 200 venues. They get in at 10.
+      </p>
+    </div>
+  </section>
+
+  <!-- DD 04 — DATA OWNERSHIP -->
+  <section class="deep-section" style="background:var(--bg-2);">
+    <div class="ghost-num">04</div>
+    <div class="section-label fade-in">
+      <span class="lnum">04 —</span>
+      <span class="ltxt">Data Ownership</span>
+    </div>
+    <h2 class="section-headline fade-in d1">Your data is<br><span class="punch">yours. Full stop.</span></h2>
+    <p class="lead fade-in d2">This is the core competitive wedge. Uber Eats and EatClub own your customer data. Perks gives it back.</p>
+
+    <div class="three-col fade-in d2">
+      <div class="tc-card">
+        <div class="tc-tag" style="color:var(--accent);">What you get</div>
+        <h4>Full cardholder records</h4>
+        <p>Name, phone number or email, enrollment date, visit frequency, points balance, redemption history. Yours to export at any time. We don't hold it hostage behind a cancellation wall.</p>
+      </div>
+      <div class="tc-card">
+        <div class="tc-tag" style="color:var(--bl);">Privacy compliance</div>
+        <h4>Australian Privacy Act compliant</h4>
+        <p>Full compliance with Australian Privacy Principles. Cardholders consent explicitly at enrollment. No third-party data sharing. No selling of cardholder data to FMCG brands without your permission and theirs.</p>
+      </div>
+      <div class="tc-card">
+        <div class="tc-tag" style="color:var(--gold);">If you leave</div>
+        <h4>Data portability guaranteed</h4>
+        <p>If you ever leave Perks Hive, for any reason, you take your complete cardholder database with you. CSV export. No fees. No retention tactics. The relationship you built stays yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGN-OFF -->
+  <section class="deep-section" style="background:var(--bg-2);text-align:center;">
+    <div class="hf">
+      <div class="hf-mark tl">+</div>
+      <div class="hf-mark tr">+</div>
+      <div class="hf-mark bl">+</div>
+      <div class="hf-mark br">+</div>
+    </div>
+    <div style="max-width:600px;margin:0 auto;position:relative;z-index:1;">
+      <div class="eyebrow fade-in on" style="color:var(--gold);">Sign-Off</div>
+      <h2 style="font-size:clamp(28px,3.5vw,48px);font-weight:900;letter-spacing:-.035em;color:var(--ink);margin:24px 0;" class="fade-in on d1">
+        Thank you for<br>reading everything.
+      </h2>
+      <p style="font-size:16px;color:var(--ink-soft);line-height:1.7;margin-bottom:40px;" class="fade-in on d2">
+        If your venue is the kind of place that wants to know who its regulars are, keep its margin, and fill quiet tables without looking desperate. This is the right fit. We're building this with a small founding group. I'd love to talk.
+      </p>
+      <div style="font-size:22px;font-weight:900;color:var(--accent);letter-spacing:-.02em;margin-bottom:8px;" class="fade-in on d2">Logan Hoang</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;" class="fade-in on d3">Founder · Perks Hive</div>
+      <div style="font-size:12px;color:var(--muted-2);" class="fade-in on d3">ABN 82 501 453 599 · Melbourne, Australia</div>
+
+      <div style="margin-top:48px;" class="fade-in on d3">
+        <div role="button" tabindex="0" onclick="return window.closeDeep();"
+             class="cta-secondary"
+             style="display:inline-block;cursor:pointer;user-select:none;touch-action:manipulation;">
+          <span>← Back to Offer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /.deep-view -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     JS — SCROLL SPY + FADE IN OBSERVER
+══════════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  // Fade-in observer
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('on'); }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(function(el){ io.observe(el); });
+
+  // Scroll-spy for sidebar TOC
+  var chapters = document.querySelectorAll('section[id]');
+  var links = document.querySelectorAll('.toc a');
+
+  var tocIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var id = e.target.id;
+        links.forEach(function(a){
+          a.classList.remove('active');
+          if(a.getAttribute('href') === '#'+id){ a.classList.add('active'); }
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  chapters.forEach(function(s){ tocIO.observe(s); });
+
+  // Smooth scroll for TOC links
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if(target){ target.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
